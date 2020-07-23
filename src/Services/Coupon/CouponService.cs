@@ -29,16 +29,13 @@ namespace Services.Coupon
             if (couponItem == null)
                 throw new ArgumentNullException(nameof(couponItem));
 
-            var saleTax = taxService.CalculateSalesTax(couponItem);
-            var importTax = taxService.CalculatImportTax(couponItem);
-            couponItem.TotalTaxes = saleTax + importTax;
+            CalculateTaxes(couponItem);
 
             logger.LogDebug($"Adding coupon: {couponItem}");
 
             coupons.Add(couponItem);
 
-            totalAmount += couponItem.TotalAmount;
-            totalTaxes += couponItem.TotalTaxes;
+            CalculateTotals(couponItem);
         }
 
         public IEnumerable<CouponItem> GetCoupons()
@@ -46,6 +43,19 @@ namespace Services.Coupon
             logger.LogDebug($"{coupons.Count} coupons created");
 
             return coupons;
+        }
+
+        private void CalculateTaxes(CouponItem couponItem)
+        {
+            var saleTax = taxService.CalculateSalesTax(couponItem);
+            var importTax = taxService.CalculatImportTax(couponItem);
+            couponItem.TotalTaxes = saleTax + importTax;
+        }
+
+        private void CalculateTotals(CouponItem couponItem)
+        {
+            totalAmount += couponItem.TotalAmount;
+            totalTaxes += couponItem.TotalTaxes;
         }
 
         public decimal GetTotalAmount() => totalAmount;
