@@ -2,7 +2,6 @@
 using Services.Coupon.Models;
 using Services.Interfaces;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using Xunit;
 
 namespace ServicesTests
