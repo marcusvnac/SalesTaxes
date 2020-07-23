@@ -81,5 +81,28 @@ namespace ServicesTests
             Assert.Equal(74.68m, service.GetTotalAmount());
             Assert.Equal(6.70m, service.GetTotalTaxes());
         }
+
+        [Fact]
+        public void CalculateItemValueAllImportTest()
+        {
+            var service = ServiceProvider.GetRequiredService<ICouponService>();
+
+            service.AddItem(new CouponItem(new Product { IsImported = true, IsTaxExempt = false, Name = "bottle of perfume", UnitPrice = 15.89m }, 2));
+            service.AddItem(new CouponItem(new Product { IsImported = true, IsTaxExempt = false, Name = "perfume", UnitPrice = 5.98m }, 4));
+            service.AddItem(new CouponItem(new Product { IsImported = true, IsTaxExempt = false, Name = "shorts", UnitPrice = 10.79m }, 3));
+            service.AddItem(new CouponItem(new Product { IsImported = true, IsTaxExempt = false, Name = "toy", UnitPrice = 6.53m }, 5));
+            service.AddItem(new CouponItem(new Product { IsImported = true, IsTaxExempt = false, Name = "keychain", UnitPrice = 1.25m }, 10));
+
+            var coupons = service.GetCoupons();
+
+            Assert.True(coupons.Count() == 5);
+            Assert.Equal(36.58m, coupons.ElementAt(0).TotalAmount);
+            Assert.Equal(27.52m, coupons.ElementAt(1).TotalAmount);
+            Assert.Equal(37.27m, coupons.ElementAt(2).TotalAmount);
+            Assert.Equal(37.60m, coupons.ElementAt(3).TotalAmount);
+            Assert.Equal(14.40m, coupons.ElementAt(4).TotalAmount);
+            Assert.Equal(153.37m, service.GetTotalAmount());
+            Assert.Equal(20.15m, service.GetTotalTaxes());
+        }
     }
 }
