@@ -83,7 +83,7 @@ namespace ServicesTests
         }
 
         [Fact]
-        public void CalculateItemValueAllImportTest()
+        public void CalculateItemValueAllImportNoExemptTest()
         {
             var service = ServiceProvider.GetRequiredService<ICouponService>();
 

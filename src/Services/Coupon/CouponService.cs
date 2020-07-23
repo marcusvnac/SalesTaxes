@@ -33,7 +33,6 @@ namespace Services.Coupon
             var importTax = taxService.CalculatImportTax(couponItem);
             couponItem.TotalTaxes = saleTax + importTax;
 
-            logger.LogDebug($"Total Tax Calculation for Product '{couponItem.Product.Name}' | Quantity {couponItem.Quantity} = {couponItem.TotalTaxes}. Total Amount = {couponItem.TotalAmount}");
             logger.LogDebug($"Adding coupon: {couponItem}");
 
             coupons.Add(couponItem);

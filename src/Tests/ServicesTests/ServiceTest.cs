@@ -13,7 +13,7 @@ namespace ServicesTests
 
         public ServiceTest()
         {
-            // Setting up DI container
+            // Setting up DI container for Tests/Mock purposes
             ServiceProvider = new ServiceCollection()
                   .AddLogging()
                   .AddTransient<IRoundingService, RoundingService>()

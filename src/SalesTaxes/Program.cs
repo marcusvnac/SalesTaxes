@@ -24,6 +24,7 @@ namespace SalesTaxes
 
             foreach (KeyValuePair<short, List<ItemSale>> entry in data)
             {
+                // For every iteraction a new instance of ConsoleApp and CouponService are created
                 IServiceScope scope = serviceProvider.CreateScope();
 
                 scope.ServiceProvider.GetRequiredService<ConsoleApp>().Run(entry.Key, entry.Value);
