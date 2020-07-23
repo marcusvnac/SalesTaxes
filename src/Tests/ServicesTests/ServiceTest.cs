@@ -17,7 +17,7 @@ namespace ServicesTests
             serviceProvider = new ServiceCollection()
                   .AddLogging()
                   .AddTransient<IRoundingService, RoundingService>()
-                  .AddTransient<ITaxData, TestTaxes>()
+                  .AddTransient<ITaxIndex, TestTaxes>()
                   .AddTransient<ITaxService, TaxService>()
                   .AddTransient<ICouponService, CouponService>()
                   .BuildServiceProvider(true);

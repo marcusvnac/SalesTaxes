@@ -25,5 +25,61 @@ namespace ServicesTests
             Assert.Equal(2.4m, calcCoupon.TotalTaxes);
         }
 
+        [Fact]
+        public void CalculateItemValue_Output1_Test()
+        {
+            var service = serviceProvider.GetRequiredService<ICouponService>();
+
+            service.AddItem(new CouponItem(new Product { IsImported = false, IsTaxExempt = true, Name = "book", UnitPrice = 12.49m }, 1));
+            service.AddItem(new CouponItem(new Product { IsImported = false, IsTaxExempt = false, Name = "music CD", UnitPrice = 14.99m }, 1));
+            service.AddItem(new CouponItem(new Product { IsImported = false, IsTaxExempt = true, Name = "chocolate bar", UnitPrice = 0.85m }, 1));
+
+            var coupons = service.GetCoupons();
+
+            Assert.True(coupons.Count() == 3);
+            Assert.Equal(12.49m, coupons.ElementAt(0).TotalAmount);
+            Assert.Equal(16.49m, coupons.ElementAt(1).TotalAmount);
+            Assert.Equal(0.85m, coupons.ElementAt(2).TotalAmount);
+            Assert.Equal(29.83m, service.GetTotalAmount());
+            Assert.Equal(1.50m, service.GetTotalTaxes());
+        }
+
+        [Fact]
+        public void CalculateItemValue_Output2_Test()
+        {
+            var service = serviceProvider.GetRequiredService<ICouponService>();
+
+            service.AddItem(new CouponItem(new Product { IsImported = true, IsTaxExempt = true, Name = "box of chocolates", UnitPrice = 10.00m }, 1));
+            service.AddItem(new CouponItem(new Product { IsImported = true, IsTaxExempt = false, Name = "bottle of perfume", UnitPrice = 47.50m }, 1));
+
+            var coupons = service.GetCoupons();
+
+            Assert.True(coupons.Count() == 2);
+            Assert.Equal(10.50m, coupons.ElementAt(0).TotalAmount);
+            Assert.Equal(54.65m, coupons.ElementAt(1).TotalAmount);
+            Assert.Equal(65.15m, service.GetTotalAmount());
+            Assert.Equal(7.65m, service.GetTotalTaxes());
+        }
+
+        [Fact]
+        public void CalculateItemValue_Output3_Test()
+        {
+            var service = serviceProvider.GetRequiredService<ICouponService>();
+
+            service.AddItem(new CouponItem(new Product { IsImported = true, IsTaxExempt = false, Name = "bottle of perfume", UnitPrice = 27.99m }, 1));
+            service.AddItem(new CouponItem(new Product { IsImported = false, IsTaxExempt = false, Name = "perfume", UnitPrice = 18.99m }, 1));
+            service.AddItem(new CouponItem(new Product { IsImported = false, IsTaxExempt = true, Name = "headache pills", UnitPrice = 9.75m }, 1));
+            service.AddItem(new CouponItem(new Product { IsImported = true, IsTaxExempt = true, Name = "chocolates", UnitPrice = 11.25m }, 1));
+
+            var coupons = service.GetCoupons();
+
+            Assert.True(coupons.Count() == 4);
+            Assert.Equal(32.19m, coupons.ElementAt(0).TotalAmount);
+            Assert.Equal(20.89m, coupons.ElementAt(1).TotalAmount);
+            Assert.Equal(9.75m, coupons.ElementAt(2).TotalAmount);
+            Assert.Equal(11.85m, coupons.ElementAt(3).TotalAmount);
+            Assert.Equal(74.68m, service.GetTotalAmount());
+            Assert.Equal(6.70m, service.GetTotalTaxes());
+        }
     }
 }

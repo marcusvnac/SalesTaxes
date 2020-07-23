@@ -40,7 +40,7 @@ namespace SalesTaxes
                   .AddSingleton<IInputData, SampleInputData>()
                   .AddSingleton<IRoundingService, RoundingService>()
                   .AddSingleton<ITaxService, TaxService>()
-                  .AddSingleton<ITaxData, SampleTaxes>()
+                  .AddSingleton<ITaxIndex, SampleTaxes>()
                   .AddScoped<ICouponService, CouponService>();
 
             if (Debugger.IsAttached)

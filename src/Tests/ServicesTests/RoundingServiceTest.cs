@@ -6,44 +6,20 @@ namespace ServicesTests
 {
     public class RoundingServiceTest : ServiceTest
     {
-        [Fact]
-        public void RoundTest1()
+        [Theory]
+        [InlineData(2.36, 2.40)]
+        [InlineData(4.75, 4.75)]
+        [InlineData(2.31, 2.35)]
+        [InlineData(0.5625, 0.6)]
+        [InlineData(2.375, 2.40)]
+        [InlineData(15.82, 15.85)]
+        public void RoundTest(decimal toRound, decimal expectedRounded)
         {
             var service = serviceProvider.GetRequiredService<IRoundingService>();
 
-            var result = service.Round(15.82m);
+            var result = service.Round(toRound);
 
-            Assert.Equal(15.85m, result);
-        }
-
-        [Fact]
-        public void RoundTest2()
-        {
-            var service = serviceProvider.GetRequiredService<IRoundingService>();
-
-            var result = service.Round(0.5625m);
-
-            Assert.Equal(0.6m, result);
-        }
-
-        [Fact]
-        public void RoundTest3()
-        {
-            var service = serviceProvider.GetRequiredService<IRoundingService>();
-
-            var result = service.Round(4.75m);
-
-            Assert.Equal(4.75m, result);
-        }
-
-        [Fact]
-        public void RoundTest4()
-        {
-            var service = serviceProvider.GetRequiredService<IRoundingService>();
-
-            var result = service.Round(2.375m);
-
-            Assert.Equal(2.40m, result);
+            Assert.Equal(expectedRounded, result);
         }
     }
 }

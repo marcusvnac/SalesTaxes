@@ -6,11 +6,11 @@ namespace Services.Tax
 {
     public class TaxService : ITaxService
     {
-        private readonly ITaxData taxData;
+        private readonly ITaxIndex taxData;
         private readonly IRoundingService roundingService;
         private readonly ILogger<TaxService> logger;
 
-        public TaxService(ITaxData taxData,
+        public TaxService(ITaxIndex taxData,
             IRoundingService roundingService,
             ILogger<TaxService> logger)
         {
