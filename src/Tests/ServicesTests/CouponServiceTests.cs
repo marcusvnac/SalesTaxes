@@ -2,6 +2,7 @@
 using Services.Coupon.Models;
 using Services.Interfaces;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Xunit;
 
 namespace ServicesTests
@@ -83,7 +84,7 @@ namespace ServicesTests
         }
 
         [Fact]
-        public void CalculateItemValueAllImportNoExemptTest()
+        public void CalculateItemValueQtdMoreThanOneAllImportNoExemptTest()
         {
             var service = ServiceProvider.GetRequiredService<ICouponService>();
 
@@ -103,6 +104,29 @@ namespace ServicesTests
             Assert.Equal(14.40m, coupons.ElementAt(4).TotalAmount);
             Assert.Equal(153.37m, service.GetTotalAmount());
             Assert.Equal(20.15m, service.GetTotalTaxes());
+        }
+
+        [Fact]
+        public void CalculateItemValuetQtdMoreThanOneNoExemptTest()
+        {
+            var service = ServiceProvider.GetRequiredService<ICouponService>();
+
+            service.AddItem(new CouponItem(new Product { IsImported = false, IsTaxExempt = false, Name = "bottle of perfume", UnitPrice = 15.89m }, 2));
+            service.AddItem(new CouponItem(new Product { IsImported = false, IsTaxExempt = false, Name = "perfume", UnitPrice = 5.98m }, 4));
+            service.AddItem(new CouponItem(new Product { IsImported = false, IsTaxExempt = false, Name = "shorts", UnitPrice = 10.79m }, 3));
+            service.AddItem(new CouponItem(new Product { IsImported = false, IsTaxExempt = false, Name = "toy", UnitPrice = 6.53m }, 5));
+            service.AddItem(new CouponItem(new Product { IsImported = false, IsTaxExempt = false, Name = "keychain", UnitPrice = 1.25m }, 10));
+
+            var coupons = service.GetCoupons();
+
+            Assert.True(coupons.Count() == 5);
+            Assert.Equal(34.98m, coupons.ElementAt(0).TotalAmount);
+            Assert.Equal(26.32m, coupons.ElementAt(1).TotalAmount);
+            Assert.Equal(35.62m, coupons.ElementAt(2).TotalAmount);
+            Assert.Equal(35.95m, coupons.ElementAt(3).TotalAmount);
+            Assert.Equal(13.75m, coupons.ElementAt(4).TotalAmount);
+            Assert.Equal(146.62m, service.GetTotalAmount());
+            Assert.Equal(13.40m, service.GetTotalTaxes());
         }
     }
 }
