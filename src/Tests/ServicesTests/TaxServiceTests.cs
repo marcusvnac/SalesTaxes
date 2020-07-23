@@ -8,9 +8,9 @@ namespace ServicesTests
     public class TaxServiceTests : ServiceTest
     {
         [Fact]
-        public void CalculateSalesTax_NoTax_Test()
+        public void CalculateSalesTaxNoTaxTest()
         {
-            var service = serviceProvider.GetRequiredService<ITaxService>();
+            var service = ServiceProvider.GetRequiredService<ITaxService>();
 
             var couponItem = new CouponItem(new Product { IsImported = false, IsTaxExempt = true, Name = "product test", UnitPrice = 15.82m }, 1);
 
@@ -20,9 +20,9 @@ namespace ServicesTests
         }
 
         [Fact]
-        public void CalculateSalesTax_Imported_SaleTaxExempt_Test()
+        public void CalculateSalesTaxImportedSaleTaxExemptTest()
         {
-            var service = serviceProvider.GetRequiredService<ITaxService>();
+            var service = ServiceProvider.GetRequiredService<ITaxService>();
 
             var couponItem = new CouponItem(new Product { IsImported = true, IsTaxExempt = true, Name = "product test", UnitPrice = 15.82m }, 1);
 
@@ -32,9 +32,9 @@ namespace ServicesTests
         }
 
         [Fact]
-        public void CalculateSalesTax_Test()
+        public void CalculateSalesTaxTest()
         {
-            var service = serviceProvider.GetRequiredService<ITaxService>();
+            var service = ServiceProvider.GetRequiredService<ITaxService>();
 
             var couponItem = new CouponItem(new Product { IsImported = false, IsTaxExempt = false, Name = "product test", UnitPrice = 12.49m }, 1);
 
@@ -44,9 +44,9 @@ namespace ServicesTests
         }
 
         [Fact]
-        public void CalculateSalesTax_Imported_Test()
+        public void CalculateSalesTaxImportedTest()
         {
-            var service = serviceProvider.GetRequiredService<ITaxService>();
+            var service = ServiceProvider.GetRequiredService<ITaxService>();
 
             var couponItem = new CouponItem(new Product { IsImported = true, IsTaxExempt = false, Name = "product test", UnitPrice = 12.49m }, 1);
 
@@ -56,9 +56,9 @@ namespace ServicesTests
         }
 
         [Fact]
-        public void CalculatImportTax_SaleTaxExempt_Test()
+        public void CalculatImportTaxSaleTaxExemptTest()
         {
-            var service = serviceProvider.GetRequiredService<ITaxService>();
+            var service = ServiceProvider.GetRequiredService<ITaxService>();
 
             var couponItem = new CouponItem(new Product { IsImported = false, IsTaxExempt = true, Name = "product test", UnitPrice = 15.82m }, 1);
 
@@ -68,9 +68,9 @@ namespace ServicesTests
         }
 
         [Fact]
-        public void CalculatImportTax_Imported_SaleTaxExempt_Test()
+        public void CalculatImportTaxImportedSaleTaxExemptTest()
         {
-            var service = serviceProvider.GetRequiredService<ITaxService>();
+            var service = ServiceProvider.GetRequiredService<ITaxService>();
 
             var couponItem = new CouponItem(new Product { IsImported = true, IsTaxExempt = true, Name = "product test", UnitPrice = 15.82m }, 1);
 
@@ -80,9 +80,9 @@ namespace ServicesTests
         }
 
         [Fact]
-        public void CalculatImportTax_Test()
+        public void CalculatImportTaxTest()
         {
-            var service = serviceProvider.GetRequiredService<ITaxService>();
+            var service = ServiceProvider.GetRequiredService<ITaxService>();
 
             var couponItem = new CouponItem(new Product { IsImported = false, IsTaxExempt = false, Name = "product test", UnitPrice = 12.49m }, 1);
 
@@ -92,9 +92,9 @@ namespace ServicesTests
         }
 
         [Fact]
-        public void CalculatImportTax_Imported_Test()
+        public void CalculatImportTaxImportedTest()
         {
-            var service = serviceProvider.GetRequiredService<ITaxService>();
+            var service = ServiceProvider.GetRequiredService<ITaxService>();
 
             var couponItem = new CouponItem(new Product { IsImported = true, IsTaxExempt = false, Name = "product test", UnitPrice = 12.49m }, 1);
 

@@ -11,7 +11,7 @@ namespace ServicesTests
         [Fact]
         public void CalculateItemValueTest()
         {
-            var service = serviceProvider.GetRequiredService<ICouponService>();
+            var service = ServiceProvider.GetRequiredService<ICouponService>();
 
             var couponItem = new CouponItem(new Product { IsImported = true, IsTaxExempt = false, Name = "product test", UnitPrice = 15.82m }, 1);
 
@@ -26,9 +26,9 @@ namespace ServicesTests
         }
 
         [Fact]
-        public void CalculateItemValue_Output1_Test()
+        public void CalculateItemValueOutput1Test()
         {
-            var service = serviceProvider.GetRequiredService<ICouponService>();
+            var service = ServiceProvider.GetRequiredService<ICouponService>();
 
             service.AddItem(new CouponItem(new Product { IsImported = false, IsTaxExempt = true, Name = "book", UnitPrice = 12.49m }, 1));
             service.AddItem(new CouponItem(new Product { IsImported = false, IsTaxExempt = false, Name = "music CD", UnitPrice = 14.99m }, 1));
@@ -45,9 +45,9 @@ namespace ServicesTests
         }
 
         [Fact]
-        public void CalculateItemValue_Output2_Test()
+        public void CalculateItemValueOutput2Test()
         {
-            var service = serviceProvider.GetRequiredService<ICouponService>();
+            var service = ServiceProvider.GetRequiredService<ICouponService>();
 
             service.AddItem(new CouponItem(new Product { IsImported = true, IsTaxExempt = true, Name = "box of chocolates", UnitPrice = 10.00m }, 1));
             service.AddItem(new CouponItem(new Product { IsImported = true, IsTaxExempt = false, Name = "bottle of perfume", UnitPrice = 47.50m }, 1));
@@ -62,9 +62,9 @@ namespace ServicesTests
         }
 
         [Fact]
-        public void CalculateItemValue_Output3_Test()
+        public void CalculateItemValueOutput3Test()
         {
-            var service = serviceProvider.GetRequiredService<ICouponService>();
+            var service = ServiceProvider.GetRequiredService<ICouponService>();
 
             service.AddItem(new CouponItem(new Product { IsImported = true, IsTaxExempt = false, Name = "bottle of perfume", UnitPrice = 27.99m }, 1));
             service.AddItem(new CouponItem(new Product { IsImported = false, IsTaxExempt = false, Name = "perfume", UnitPrice = 18.99m }, 1));

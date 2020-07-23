@@ -4,7 +4,7 @@ namespace SalesTaxes.SampleData
 {
     /// <summary>
     /// Taxes to be applied on sales.
-    /// In a real-world application, the values could be loaded from a data storage like a database or in a simpler solution, from a configuration file.
+    /// In a real-world application, the values could be loaded from a data storage like a database or in a simpler solution, from a configuration file or even from an API call.
     /// </summary>
     public class SampleTaxes : ITaxIndex
     {

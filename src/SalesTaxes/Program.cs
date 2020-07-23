@@ -20,13 +20,15 @@ namespace SalesTaxes
             RegisterServices();
 
             var inputData = serviceProvider.GetService<IInputData>();
-
             var data = inputData.GetData();
 
             foreach (KeyValuePair<short, List<ItemSale>> entry in data)
             {
                 IServiceScope scope = serviceProvider.CreateScope();
+
                 scope.ServiceProvider.GetRequiredService<ConsoleApp>().Run(entry.Key, entry.Value);
+
+                scope.Dispose();
             }
 
             DisposeServices();
@@ -35,7 +37,7 @@ namespace SalesTaxes
         private static void RegisterServices()
         {
             // Setting up DI container
-            var serviceCollection = new ServiceCollection()                  
+            var serviceCollection = new ServiceCollection()
                   .AddScoped<ConsoleApp>()
                   .AddSingleton<IInputData, SampleInputData>()
                   .AddSingleton<IRoundingService, RoundingService>()

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Services.Coupon.Models;
 using Services.Interfaces;
+using System;
 using System.Collections.Generic;
 
 namespace Services.Coupon
@@ -12,7 +13,6 @@ namespace Services.Coupon
         private readonly ILogger<CouponService> logger;
         private decimal totalAmount;
         private decimal totalTaxes;
-
 
         public CouponService(ITaxService taxService,
             ILogger<CouponService> logger)
@@ -26,14 +26,16 @@ namespace Services.Coupon
 
         public void AddItem(CouponItem couponItem)
         {
+            if (couponItem == null)
+                throw new ArgumentNullException(nameof(couponItem));
+
             var saleTax = taxService.CalculateSalesTax(couponItem);
             var importTax = taxService.CalculatImportTax(couponItem);
-
             couponItem.TotalTaxes = saleTax + importTax;
 
             logger.LogDebug($"Total Tax Calculation for Product '{couponItem.Product.Name}' | Quantity {couponItem.Quantity} = {couponItem.TotalTaxes}. Total Amount = {couponItem.TotalAmount}");
-
             logger.LogDebug($"Adding coupon: {couponItem}");
+
             coupons.Add(couponItem);
 
             totalAmount += couponItem.TotalAmount;

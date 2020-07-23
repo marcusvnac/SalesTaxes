@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace SalesTaxes
 {
-    internal class ConsoleApp
+    public class ConsoleApp
     {
         private readonly ICouponService couponService;
 
@@ -15,24 +15,26 @@ namespace SalesTaxes
             this.couponService = couponService;
         }
 
-        internal void Run(short inputId, List<ItemSale> saleItems)
+        public void Run(short inputId, List<ItemSale> saleItems)
         {
+            if (saleItems == null)
+                throw new ArgumentNullException(nameof(saleItems));
+
             Console.OutputEncoding = System.Text.Encoding.UTF8;
             Console.WriteLine($"Output {inputId}:");
 
-            foreach(var item in saleItems)
+            foreach (var item in saleItems)
             {
-                couponService.AddItem(new CouponItem(item.Product,  item.Quantity));
+                couponService.AddItem(new CouponItem(item.Product, item.Quantity));
             }
 
             var coupons = couponService.GetCoupons();
-            foreach(var coupon in coupons)
+            foreach (var coupon in coupons)
             {
-                var impportedStr = coupon.Product.IsImported ? "imported" : "";
-                Console.WriteLine($"  •  {coupon.Quantity} {impportedStr} {coupon.Product.Name} at {coupon.TotalAmount}");
+                var impportedStr = coupon.Product.IsImported ? "imported " : "";
+                Console.WriteLine($"  •  {coupon.Quantity} {impportedStr}{coupon.Product.Name}: {coupon.TotalAmount}");
             }
             Console.WriteLine($"  •  Sales Taxes: {couponService.GetTotalTaxes()} Total: {couponService.GetTotalAmount()}");
-
             Console.WriteLine("\n");
         }
     }

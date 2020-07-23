@@ -9,19 +9,18 @@ namespace ServicesTests
 {
     public abstract class ServiceTest
     {
-        protected static ServiceProvider serviceProvider;
+        protected ServiceProvider ServiceProvider { get; private set; }
 
         public ServiceTest()
         {
             // Setting up DI container
-            serviceProvider = new ServiceCollection()
+            ServiceProvider = new ServiceCollection()
                   .AddLogging()
                   .AddTransient<IRoundingService, RoundingService>()
-                  .AddTransient<ITaxIndex, TestTaxes>()
+                  .AddTransient<ITaxIndex, TestTaxeIndexs>()
                   .AddTransient<ITaxService, TaxService>()
                   .AddTransient<ICouponService, CouponService>()
                   .BuildServiceProvider(true);
         }
-
     }
 }

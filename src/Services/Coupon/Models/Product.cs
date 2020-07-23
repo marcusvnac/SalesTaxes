@@ -1,8 +1,5 @@
 ﻿namespace Services.Coupon.Models
 {
-    /// <summary>
-    /// Represents a product that can be bought by a client
-    /// </summary>
     public class Product
     {
         public bool IsImported { get; set; }

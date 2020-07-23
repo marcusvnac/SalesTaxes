@@ -15,7 +15,7 @@ namespace ServicesTests
         [InlineData(15.82, 15.85)]
         public void RoundTest(decimal toRound, decimal expectedRounded)
         {
-            var service = serviceProvider.GetRequiredService<IRoundingService>();
+            var service = ServiceProvider.GetRequiredService<IRoundingService>();
 
             var result = service.Round(toRound);
 

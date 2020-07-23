@@ -4,7 +4,7 @@ namespace Services.Interfaces
 {
     public interface ITaxService
     {
-        public decimal CalculateSalesTax(CouponItem couponItem);
-        public decimal CalculatImportTax(CouponItem couponItem);
+        decimal CalculateSalesTax(CouponItem couponItem);
+        decimal CalculatImportTax(CouponItem couponItem);
     }
 }

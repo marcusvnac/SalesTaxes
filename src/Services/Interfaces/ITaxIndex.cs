@@ -2,7 +2,7 @@
 {
     public interface ITaxIndex
     {
-        public decimal SalesTax();
-        public decimal ImportTax();
+        decimal SalesTax();
+        decimal ImportTax();
     }
 }

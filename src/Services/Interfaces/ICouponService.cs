@@ -5,9 +5,9 @@ namespace Services.Interfaces
 {
     public interface ICouponService
     {
-        public void AddItem(CouponItem couponItem);
-        public IEnumerable<CouponItem> GetCoupons();
-        public decimal GetTotalAmount();
-        public decimal GetTotalTaxes();
+        void AddItem(CouponItem couponItem);
+        IEnumerable<CouponItem> GetCoupons();
+        decimal GetTotalAmount();
+        decimal GetTotalTaxes();
     }
 }
